@@ -35,6 +35,6 @@ def send_welcome(message):
     "@Prabhafeb16 \n" +
     "@jaysampat \n" +
     "@MVarma \n" +
-    "## NOTE: WE DO NOT SENT ANY DIRECT MESSAGES ##")
+    "## NOTE: WE DO NOT SEND ANY DIRECT MESSAGES ##")
 
 bot.infinity_polling()
