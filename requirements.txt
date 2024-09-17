@@ -1,0 +1,3 @@
+pyTelegramBotAPI
+jsonpath_ng
+python-dotenv
