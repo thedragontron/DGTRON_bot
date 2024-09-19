@@ -62,7 +62,7 @@ def send_welcome(message):
 				  
 				  '''.format(PRICE_VALUE),reply_markup=gen_markup())
 
-@bot.message_handler(commands=['when', 'WHEN'])
+@bot.message_handler(commands=['when', 'WHEN','contact', 'CONTACT'])
 def send_welcome(message):
     bot.reply_to(message, "patience is the key to success. \n" +
     "耐心是成功的关键 \n" +
