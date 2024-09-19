@@ -47,7 +47,7 @@ def get_latest_Price():
 def send_welcome(message):
     bot.reply_to(message, "Howdy, how are you doing? Welcome To Dragon On Tron $DGTRON")
 
-@bot.message_handler(commands=['ca','buy','hodl','purchase','howtobuy','dgtron','$dgtron','CA','BUY','HODL','PURCHASE','HOWTOBUY','DGTRON','$DGTRON','contract_address', 'Contract_Address', 'CONTRACT_ADDRESS'])
+@bot.message_handler(commands=['ca','buy','hodl','purchase', 'how','where','howtobuy','dgtron','$dgtron','CA','BUY','HODL','PURCHASE','HOW','HOWTOBUY',,'WHERE','DGTRON','$DGTRON','contract_address', 'Contract_Address', 'CONTRACT_ADDRESS'])
 def send_welcome(message):
     PRICE_VALUE = get_latest_Price()
     chatID = message.chat.id
