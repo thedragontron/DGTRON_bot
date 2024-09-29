@@ -37,7 +37,7 @@ def get_latest_Price():
         response = urllib.request.urlopen(TRON_SCAN_URL)
         contents = response.read()
         json_object = json.loads(contents)
-        print(json_object)
+        # print(json_object)
         name_query = jp.parse("$.trc20_tokens[0].market_info.priceInUsd")
         result = name_query.find(json_object)
         PRICE_VALUE = result[0].value
