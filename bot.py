@@ -91,8 +91,6 @@ def manageMessages(message):
     "@jaysampat \n" +
     "@MVarma \n" +
     "## NOTE: WE DO NOT SEND ANY DIRECT MESSAGES ##")
-    else:
-         bot.send_message(chatID,message.text)
 
 @bot.message_handler(func=lambda message: True)
 def echo_all(message):
