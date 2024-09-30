@@ -19,6 +19,7 @@ TRON_SCAN_URL="https://apilist.tronscanapi.com/api/token_trc20?contract="+os.get
 
 bot = telebot.TeleBot(BOT_TOKEN)
 PRICE_VALUE = 0.0
+HOLDERS_VALUE = "200"
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -38,14 +39,15 @@ def get_latest_Price():
         contents = response.read()
         json_object = json.loads(contents)
         # print(json_object)
-        name_query = jp.parse("$.trc20_tokens[0].market_info.priceInUsd")
-        result = name_query.find(json_object)
-        PRICE_VALUE = result[0].value
+        price_query = jp.parse("$.trc20_tokens[0].market_info.priceInUsd")
+        holder_query = jp.parse("$.trc20_tokens[0].holders_count")
+        PRICE_VALUE = price_query.find(json_object)[0].value
+        HOLDERS_VALUE = holder_query.find(json_object)[0].value 
     except urllib.error.HTTPError as e:
         print(f"HTTP Error: {e.code} {e.reason}")
     except urllib.error.URLError as e:
         print(f"URL Error: {e.reason}")
-    finally:return PRICE_VALUE
+    finally:return [PRICE_VALUE,HOLDERS_VALUE]
 
 def manageMessages(message):
     actualValue = message.text.lower()
@@ -53,20 +55,22 @@ def manageMessages(message):
     if actualValue in ["/start","/hello"]:
         bot.send_message(chatID,"Howdy, how are you doing? Welcome To Dragon On Tron $DGTRON")
     elif actualValue in buy_messages:
-        PRICE_VALUE = get_latest_Price()
+        PRICE_VALUE = get_latest_Price()[0]
+        HOLDERS_VALUE = str(get_latest_Price()[1])
         bot.send_message(chatID,'''
-	$DGTRON | DRAGON on TRON ❤️
+	<a href="https://dexscreener.com/tron/TPBEsjyW8gZ72wpkyBF7gQNszKpGnSQT8e">$DGTRON</a> | DRAGON on TRON ❤️
                          
-  Contract Address:
-  TPBEsjyW8gZ72wpkyBF7gQNszKpGnSQT8e
+	<b>Contract Address</b> :
+	TPBEsjyW8gZ72wpkyBF7gQNszKpGnSQT8e
 				  
-	✅ Listed on SunSwap 🌞 
+	✅ Listed on <a href="https://sun.io/#/sun_swap/v2?t0=T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb&t1=TPBEsjyW8gZ72wpkyBF7gQNszKpGnSQT8e&type=swap">SUN SWAP</a> 🌞 
 				  			  
-	Price: ${:.9f}'''.format(PRICE_VALUE)+
-                
+	<b>Price</b> : ${:.9f}'''.format(PRICE_VALUE)+
+    
     '''
+	<b>Holders</b> : '''+HOLDERS_VALUE+'''
 
- 📊 <a href="https://dexscreener.com/tron/TPBEsjyW8gZ72wpkyBF7gQNszKpGnSQT8e">DEX S</a> | 💰 <a href="https://sun.io/#/sun_swap/v2?t0=T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb&t1=TPBEsjyW8gZ72wpkyBF7gQNszKpGnSQT8e&type=swap">BUY</a> | 🐤 <a href="https://x.com/OfficialDGTRON">Twitter</a> | 🕸 <a href="https://thedragontron.meme/">WEBSITE</a>
+ 	📊 <a href="https://dexscreener.com/tron/TPBEsjyW8gZ72wpkyBF7gQNszKpGnSQT8e">DEX S</a> | 💰 <a href="https://sun.io/#/sun_swap/v2?t0=T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb&t1=TPBEsjyW8gZ72wpkyBF7gQNszKpGnSQT8e&type=swap">BUY</a> | 🐤 <a href="https://x.com/OfficialDGTRON">Twitter</a> | 🕸 <a href="https://thedragontron.meme/">WEBSITE</a>
 
     ''', 
     parse_mode='html'
