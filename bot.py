@@ -24,13 +24,13 @@ HOLDERS_VALUE = "200"
 ssl._create_default_https_context = ssl._create_unverified_context
 
 buy_messages = ["/add", "/ca", "/buy", "/how","/hodl","/howtobuy","/where","/dgtron","/purchase"]
+roadmap_message = ["/where", "/roadmap", "/rp", "/whitepapers","/whitepaper","/wp","/utility"]
 
 
 def gen_markup():
     markup = InlineKeyboardMarkup()
-    markup.row_width = 2
-    markup.add(InlineKeyboardButton("SunSwap", url="https://sun.io/#/sun_swap/v2?t0=T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb&t1=TPBEsjyW8gZ72wpkyBF7gQNszKpGnSQT8e&type=swap"),
-                               InlineKeyboardButton("SunPump", url="https://sunpump.meme/token/TPBEsjyW8gZ72wpkyBF7gQNszKpGnSQT8e"))
+    markup.row_width = 1
+    markup.add(InlineKeyboardButton("Become a Holder", url="https://sun.io/#/sun_swap/v2?t0=T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb&t1=TPBEsjyW8gZ72wpkyBF7gQNszKpGnSQT8e&type=swap"))
     return markup
 
 def get_latest_Price():
@@ -95,6 +95,10 @@ def manageMessages(message):
     "@jaysampat \n" +
     "@MVarma \n" +
     "## NOTE: WE DO NOT SEND ANY DIRECT MESSAGES ##")
+    elif actualValue in roadmap_message:     
+        bot.send_photo(chatID,'https://thedragontron.meme/wp-content/uploads/2024/10/RoadMap.png',
+                       '''<a href="https://dgtron.gitbook.io/DGTRON-docs/roadmap/our-roadmap">Click Here for the Road Map</a>'''
+                       ,parse_mode='html')
 
 @bot.message_handler(func=lambda message: True)
 def echo_all(message):
